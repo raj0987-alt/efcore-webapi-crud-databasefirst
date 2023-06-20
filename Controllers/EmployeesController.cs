@@ -26,6 +26,19 @@ namespace EFCoreWebAPIDBFirst.Controllers
             await _context.SaveChangesAsync();
             return Ok(await _context.Employees.ToListAsync());
         }
+        [HttpPut]
+        public async Task<ActionResult<List<Employee>>> UpdateEmployee(Employee request)
+        {
+            var employee = await _context.Employees.FindAsync(request.Id);
+            if (employee == null)
+                return BadRequest("Employee Not Found");
+            employee.Name = request.Name;
+            employee.FirstName = request.FirstName;
+            employee.LastName = request.LastName;
+            employee.Email = request.Email;
+            await _context.SaveChangesAsync();
+            return Ok(await _context.Employees.ToListAsync());
+        }
 
     }
 }
