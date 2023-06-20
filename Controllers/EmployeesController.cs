@@ -19,5 +19,13 @@ namespace EFCoreWebAPIDBFirst.Controllers
         {
             return Ok(await _context.Employees.ToListAsync());
         }
+        [HttpPost]
+        public async Task<ActionResult<List<Employee>>> AddEmployee(Employee employee)
+        {
+            _context.Employees.Add(employee);
+            await _context.SaveChangesAsync();
+            return Ok(await _context.Employees.ToListAsync());
+        }
+
     }
 }
